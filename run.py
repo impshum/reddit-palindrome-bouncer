@@ -15,6 +15,11 @@ reddit_client_secret = config['REDDIT']['reddit_client_secret']
 reddit_target_subreddit = config['REDDIT']['reddit_target_subreddit']
 reddit_post_limit = int(config['REDDIT']['reddit_post_limit'])
 reddit_reply_text = config['REDDIT']['reddit_reply_text']
+reddit_ignore_users = [i.strip() for i in config['REDDIT']['reddit_ignore_users'].split(',')]
+
+print(reddit_ignore_users)
+quit()
+
 test_mode = config['SETTINGS'].getboolean('test_mode')
 reply_via_comment = config['SETTINGS'].getboolean('reply_via_comment')
 reply_via_pm = config['SETTINGS'].getboolean('reply_via_pm')
