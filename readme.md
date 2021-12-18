@@ -13,4 +13,5 @@ Removes submissions and comments that are not palindromes on a chosen subreddit.
 
 ### Notes
 
+-   SQLite databaase will be created upon first run. 
 -   I will not be held responsible for any bad things that might happen to you or your Reddit account whilst using this bot. Follow Reddiquette and stay safe.
