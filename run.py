@@ -17,9 +17,6 @@ reddit_post_limit = int(config['REDDIT']['reddit_post_limit'])
 reddit_reply_text = config['REDDIT']['reddit_reply_text']
 reddit_ignore_users = [i.strip() for i in config['REDDIT']['reddit_ignore_users'].split(',')]
 
-print(reddit_ignore_users)
-quit()
-
 test_mode = config['SETTINGS'].getboolean('test_mode')
 reply_via_comment = config['SETTINGS'].getboolean('reply_via_comment')
 reply_via_pm = config['SETTINGS'].getboolean('reply_via_pm')
@@ -90,7 +87,7 @@ def main():
 
     for submission in reddit.subreddit(reddit_target_subreddit).new(limit=reddit_post_limit):
         if submission.author is not None:
-            if submission.author.name not in ['AutoModerator', reddit_user]:
+            if submission.author.name not in reddit_ignore_users:
                 palindrome = is_palindrome(stripper(submission.title))
                 print(f'{palindrome} - {submission.title.strip()}')
                 if not test_mode:
@@ -106,7 +103,7 @@ def main():
 
         for comment in submission.comments.list():
             if comment.author is not None:
-                if submission.author.name not in ['AutoModerator', reddit_user]:
+                if submission.author.name not in reddit_ignore_users:
                     palindrome = is_palindrome(stripper(comment.body))
                     print(f'{palindrome} - {comment.body.strip()}')
                     if not test_mode:
