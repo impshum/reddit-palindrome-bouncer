@@ -94,7 +94,7 @@ def main():
                             submission.mod.approve()
                         else:
                             if reply_via_pm:
-                                passreddit.redditor(submission.author.name).message(reddit_reply_title, reddit_reply_text)
+                                reddit.redditor(submission.author.name).message(reddit_reply_title, reddit_reply_text)
                             elif reply_via_comment:
                                 submission.reply(reddit_reply_text)
                             submission.mod.remove()
@@ -110,7 +110,7 @@ def main():
                                 comment.mod.approve()
                             else:
                                 if reply_via_pm:
-                                    passreddit.redditor(comment.author.name).message(reddit_reply_title, reddit_reply_text)
+                                    reddit.redditor(comment.author.name).message(reddit_reply_title, reddit_reply_text)
                                 elif reply_via_comment:
                                     comment.reply(reddit_reply_text)
                                 comment.mod.remove()
