@@ -16,6 +16,8 @@ reddit_target_subreddit = config['REDDIT']['reddit_target_subreddit']
 reddit_post_limit = int(config['REDDIT']['reddit_post_limit'])
 reddit_reply_text = config['REDDIT']['reddit_reply_text']
 test_mode = config['SETTINGS'].getboolean('test_mode')
+reply_via_comment = config['SETTINGS'].getboolean('reply_via_comment')
+reply_via_pm = config['SETTINGS'].getboolean('reply_via_pm')
 read_database = config['SETTINGS'].getboolean('read_database')
 
 reddit = praw.Reddit(
@@ -91,7 +93,10 @@ def main():
                         if palindrome:
                             submission.mod.approve()
                         else:
-                            submission.reply(reddit_reply_text)
+                            if reply_via_pm:
+                                passreddit.redditor(submission.author.name).message(reddit_reply_title, reddit_reply_text)
+                            elif reply_via_comment:
+                                submission.reply(reddit_reply_text)
                             submission.mod.remove()
 
         for comment in submission.comments.list():
@@ -104,7 +109,10 @@ def main():
                             if palindrome:
                                 comment.mod.approve()
                             else:
-                                comment.reply(reddit_reply_text)
+                                if reply_via_pm:
+                                    passreddit.redditor(comment.author.name).message(reddit_reply_title, reddit_reply_text)
+                                elif reply_via_comment:
+                                    comment.reply(reddit_reply_text)
                                 comment.mod.remove()
 
     conn.commit()
